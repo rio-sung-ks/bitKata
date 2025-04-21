@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import findOrCreate from 'mongoose-findorcreate';
 
 /*
 
@@ -10,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
 })
 
+UserSchema.plugin(findOrCreate);
 const model = mongoose.model("User", UserSchema);
 
 export default model;

@@ -4,11 +4,11 @@ dotenv.config();
 import express from "express";
 import session from "express-session";
 import passport from "passport";
-
+import { Strategy as GitHubStrategy } from "passport-github";
 import path from "path";
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// import User from "./models";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,35 +23,52 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// var GitHubStrategy = require('passport-github').Strategy;
+const GITHUB_CLIENT_ID = "Ov23liVQtKZNvPHPVv41";
+const GITHUB_SECRET_ID = "0deacf564d524bbd44e0c59d549f3519351b8959";
 
-// passport.use(new GitHubStrategy({
-//     clientID: process.env.GITHUB_CLIENT_ID,
-//     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//     callbackURL: "http://127.0.0.1:3000/auth/github/callback"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
+// const User = {
+//   githubId: "janei"
+// }
+passport.use(new GitHubStrategy({
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret: GITHUB_SECRET_ID,
+    callbackURL: "http://localhost:8000/auth/github/callback"
+  },
+  // function(accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ githubId: "janei" }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+app.get("/auth/github", passport.authenticate("github"));
+
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("localhost:8000/");
+  }
+);
 // initialize => serialize => authenticate
 //사용자가 로그인 양식을 제출하면 /login으로 POST 요청이 전송되어 설정한 passport.authenticate 미들웨어가 실행됩니다.
 // Passport는 req.body.username 및 req.body.password를 가져와 로컬 전략의 확인 함수에 전달합니다.
 // 데이터베이스에서 사용자를 로드하고 주어진 비밀번호가 데이터베이스에 있는 비밀번호와 일치하는지 확인하는 작업을 수행합니다.
 
-//사용자를 찾을 수 없거나 비밀번호가 확인되지 않으면 done(null, false)를 호출합니다. 
+//사용자를 찾을 수 없거나 비밀번호가 확인되지 않으면 done(null, false)를 호출합니다.
 // 모든 것이 정상적으로 진행되어 사용자가 로그인하기를 원하면 done(null, user)를 호출합니다.
 // done를 호출하면 흐름이 passport.authenticate로 다시 이동합니다. 여기에는 오류, 사용자 및 추가 정보 객체(정의된 경우)가 전달
 //사용자가 전달되면 미들웨어는 req.login(요청에 첨부된 패스포트 함수)을 호출합니다.
 
 
 // TODO: 필요에 따라 세션 및 Passport 관련 설정을 수정해주세요.
-app.use(session({
+app.use(
+  session({
   secret: "sampleSecretKey",
   resave: true,
-  saveUninitialized : false
+  saveUninitialized : false,
 }));
 // configPassport();
 app.use(passport.initialize());
@@ -62,7 +79,7 @@ app.use("/", index);
 app.use("/problems", index);
 app.use("/problems/:id", (req, res, next) => {
   // res.render("index", { title: "Express" });
-  console.log(sample[0]);
+  // console.log(sample[0]);
 
 });
 
