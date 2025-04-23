@@ -1,5 +1,5 @@
+
 import mongoose from "mongoose";
-import findOrCreate from 'mongoose-findorcreate';
 
 /*
 
@@ -7,11 +7,12 @@ import findOrCreate from 'mongoose-findorcreate';
 
  */
 const UserSchema = new mongoose.Schema({
-  name : String,
+  name: String,
   email: String,
-})
+  githubId: String,
+  username : String,
+});
 
-UserSchema.plugin(findOrCreate);
 const model = mongoose.model("User", UserSchema);
 
 export default model;

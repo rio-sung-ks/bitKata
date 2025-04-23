@@ -1,12 +1,21 @@
 import dotenv from "dotenv";
 dotenv.config();
+import {sample_problems} from "./models/sample_problems.json";
+
+import mongoose from 'mongoose';
+async function connectDB() {
+  try {
+    await mongoose.connect('mongodb://localhost:27017/rioTestDB');
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+}
 
 import express from "express";
 import session from "express-session";
 import passport from "passport";
-import { Strategy as GitHubStrategy } from "passport-github";
 import path from "path";
-// import User from "./models";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
@@ -16,42 +25,16 @@ const __dirname = dirname(__filename);
 import index from "./routes/index.js";
 import configPassport from "./config/passport.js";
 
+connectDB();
 const app = express();
 
-app.set("view engine", "ejs");
+app.set("view engine", "ejs",);
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const GITHUB_CLIENT_ID = "Ov23liVQtKZNvPHPVv41";
-const GITHUB_SECRET_ID = "0deacf564d524bbd44e0c59d549f3519351b8959";
 
-// const User = {
-//   githubId: "janei"
-// }
-passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_SECRET_ID,
-    callbackURL: "http://localhost:8000/auth/github/callback"
-  },
-  // function(accessToken, refreshToken, profile, cb) {
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ githubId: "janei" }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
 
-app.get("/auth/github", passport.authenticate("github"));
-
-app.get(
-  "/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("localhost:8000/");
-  }
-);
 // initialize => serialize => authenticate
 //사용자가 로그인 양식을 제출하면 /login으로 POST 요청이 전송되어 설정한 passport.authenticate 미들웨어가 실행됩니다.
 // Passport는 req.body.username 및 req.body.password를 가져와 로컬 전략의 확인 함수에 전달합니다.
@@ -62,24 +45,39 @@ app.get(
 // done를 호출하면 흐름이 passport.authenticate로 다시 이동합니다. 여기에는 오류, 사용자 및 추가 정보 객체(정의된 경우)가 전달
 //사용자가 전달되면 미들웨어는 req.login(요청에 첨부된 패스포트 함수)을 호출합니다.
 
-
 // TODO: 필요에 따라 세션 및 Passport 관련 설정을 수정해주세요.
+
 app.use(
   session({
   secret: "sampleSecretKey",
   resave: true,
   saveUninitialized : false,
 }));
-// configPassport();
+
 app.use(passport.initialize());
 app.use(passport.session());
 //세션에 사용자 정보가 있으면 deserializeUser 호출
 
+configPassport();
+app.get("/auth/github", passport.authenticate("github"));
+
+
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/" }),
+  function (req, res, next) {
+    // Successful authentication, redirect home.
+    res.redirect("http://localhost:8000/");
+  }
+);
+
+
 app.use("/", index);
-app.use("/problems", index);
 app.use("/problems/:id", (req, res, next) => {
-  // res.render("index", { title: "Express" });
+  const problemId = req.params.id;
+  console.log(problemId);
   // console.log(sample[0]);
+  res.json(sample_problems[0]);
 
 });
 

@@ -4,15 +4,19 @@ import passport from "passport";
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.render("index", { title: "바닐라코딩" });
+  res.render("index", { title: "username" });
 });
 
-router.post(
+router.get(
   "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  })
+  (req, res, next) => {
+    res.render("indexLogin");
+  }
+//   passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/login",
+//   }
+// )
 );
 
 

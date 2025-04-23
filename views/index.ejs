@@ -7,7 +7,7 @@
   <body>
     <h1>BitKata</h1>
     <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
-    <button>git 로그인</button>
+    <p style="color: blue; text-decoration: underline"onclick="gitLogin()">로그인 페이지</p>
 
     <ul class="tabs">
       <li>Level 1</li>
@@ -39,8 +39,11 @@
     </ul>
     <script>
       function handleClick(problemId){
-        console.log(problemId);
-        window.location.href = `/problems/${problemId}`
+        // console.log(problemId);
+        window.location.href = `/problems/${problemId}`;
+      }
+      function gitLogin(){
+        window.location.href = `/login`;
       }
     </script>
   </body>
