@@ -41,42 +41,21 @@
       </li>
     </ul>
     <script>
-        function filterProblems(){
-          const selectLevel = document.querySelector("#dropdown").value;
-          const problems = document.querySelectorAll(".problems li");
 
-          problems.forEach(problem => {
-            const dataLevel = problem.getAttribute("data-level");
-            if( selectLevel === "all" || selectLevel === dataLevel){
-              problem.style.display = "block";
-            } else {
-              problem.style.display = "none";
-            }
-          })
-        }
-
-
-      //   function filterProblems() {
-      //   const selectedLevel = document.getElementById("dropdown").value;
-      //   const problems = document.querySelectorAll(".problems li");
-
-      //   problems.forEach(problem => {
-      //     const level = problem.getAttribute("data-level");
-      //     if (selectedLevel === "all" || level === selectedLevel) {
-      //       problem.style.display = "block";
-      //     } else {
-      //       problem.style.display = "none";
-      //     }
-      //   });
-      // }
-
-
-
-
-
+      function filterProblems(){
+        const selectLevel = document.querySelector("#dropdown").value;
+        const lis = document.querySelectorAll(".problems li");
+        lis.forEach(li => {
+          const datalevel = li.dataset.level;
+          if(selectLevel === "all" || selectLevel === datalevel){
+            li.style.display = "block";
+          } else {
+            li.style.display = "none";
+          }
+        })
+      }
 
         function handleClick(problemId){
-        // console.log(problemId);
         window.location.href = `/problems/${problemId}`;
       }
       function gitLogin(){

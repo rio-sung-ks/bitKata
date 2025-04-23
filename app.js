@@ -14,7 +14,6 @@ async function connectDB() {
 connectDB();
 const problems = await Problem.find();
 console.log(problems);
-// mongodb+srv://riosungks:1Qawsedrf@mongodb-cluster.dqjg6hw.mongodb.net/rio-api?retryWrites=true&w=majority&appName=mongodb-cluster
 import express from "express";
 import session from "express-session";
 import passport from "passport";
@@ -63,8 +62,6 @@ app.get(
 app.use("/", index);
 app.use("/problems/:id", (req, res, next) => {
   const problemId = req.params.id;
-  // console.log(problemId);
-  // console.log(sample[0]);
   res.json(problems[problemId]);
 
 });

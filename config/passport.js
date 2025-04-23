@@ -11,23 +11,23 @@ export default function configPassport() {
       callbackURL: process.env.GITHUB_CALLBACK_URL,
     },
 
-     async function(accessToken, refreshToken, profile, cb) {
+     async function(accessToken, refreshToken, profile, callback) {
       try {
         let newUser = await User.findOne({ githubId: profile.id })
         console.log("🟢 found newUser : ",newUser)
-        
+
         if(!newUser){
             newUser = await new User({
             githubId: profile.id,
           }).save();
-          return cb(null, newUser);
+          return callback(null, newUser);
 
         } else {
-          return cb(null, newUser);
+          return callback(null, newUser);
         }
       } catch (error) {
         console.error(error);
-        return cb(error);
+        return callback(error);
       }
     }
   ));
