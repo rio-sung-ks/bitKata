@@ -1,17 +1,20 @@
 import dotenv from "dotenv";
 dotenv.config();
-import {sample_problems} from "./models/sample_problems.json";
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import Problem from "./models/Problem.js";
 async function connectDB() {
   try {
-    await mongoose.connect('mongodb://localhost:27017/rioTestDB');
+    await mongoose.connect('mongodb+srv://riosungks:1Qawsedrf@mongodb-cluster.dqjg6hw.mongodb.net/rio-api?retryWrites=true&w=majority&appName=mongodb-cluster');
     console.log('Connected to MongoDB');
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error(error);
   }
 }
-
+connectDB();
+const problems = await Problem.find();
+// console.log(problems);
+// mongodb+srv://riosungks:1Qawsedrf@mongodb-cluster.dqjg6hw.mongodb.net/rio-api?retryWrites=true&w=majority&appName=mongodb-cluster
 import express from "express";
 import session from "express-session";
 import passport from "passport";

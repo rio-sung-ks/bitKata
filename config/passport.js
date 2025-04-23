@@ -15,12 +15,13 @@ export default function configPassport() {
       try {
         let newUser = await User.findOne({ githubId: profile.id })
         console.log("🟢 found newUser : ",newUser)
+        
         if(!newUser){
             newUser = await new User({
             githubId: profile.id,
           }).save();
           return cb(null, newUser);
-          
+
         } else {
           return cb(null, newUser);
         }
