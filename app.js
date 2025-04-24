@@ -65,7 +65,7 @@ app.get("/problems/:id", (req, res, next) => {
   if(!req.user){
     return res.redirect("/login");
   }
-  const problemId = parseInt(req.params.id);
+  let problemId = parseInt(req.params.id);
   res.render("problemDetail",{
     title: problems[problemId].title,
     completed_users: problems[problemId].completed_users,
@@ -79,19 +79,41 @@ app.get("/problems/:id", (req, res, next) => {
 app.post("/problems/:id", (req, res) => {
   const proId = req.body.problemId;
   const codeText = req.body.code;
-  const arg = problems[proId].tests[proId].code;
-  const answer =  problems[proId].tests[proId].solution;
-  console.log("proId : ", proId);
-  console.log("codeText : ", codeText);
-  console.log("function argument : ", arg);
-  console.log("return value : ", answer);
+  let noTest = problems[proId].tests;
+  console.log(`noTest : ${noTest}`);
+  // const arg = problems[proId].tests[proId].code;
+  // const answer =  problems[proId].tests[proId].solution;
   
-  let myObj = { name :'123', open: 2025 };
-  vm.createContext(myObj);
-  vm.runInContext('open+=1;',myObj);
+  console.log("proId : ", proId); // 0
+  console.log("codeText : ", codeText); // function
+  // console.log("function call : ", arg);  // solution(3)
+  // console.log("return value : ", answer);  // 2
+  
+  try {
+    for (let i = 0; i < noTest.length; i++) {
+      let arg = problems[proId].tests[i].code;
+      let answer = problems[proId].tests[i].solution;
+      // console.log("function call : ", arg);  // solution(3)
+      // console.log("return value : ", answer);  // 2
+      const context = {};
+      vm.createContext(context);
+      vm.runInContext(codeText,context);
+      const result = vm.runInContext(arg,context);
 
-  console.log("요청");
-  res.send("전송완료");
+      if(result === answer){
+        return res.send("success");
+      } else {
+        return res.send("failure");
+      }
+    }
+    
+    // console.log(`result : ${result}`);
+    // console.log(`result : ${answer}`)
+
+  } catch (error) {
+    res.send("failure");
+
+  }
 })
 
 // function solution(n) {
@@ -102,6 +124,15 @@ app.post("/problems/:id", (req, res) => {
 //   return fib[n];
 // }
 
+//하샤드
+// function solution(x) {
+//   let sum = 0;
+//   let arr = String(x).split("");
+//   for(let i = 0; i < arr.length; i++){
+//       sum += Number(arr[i]);
+//   }
+//   return (x % sum == 0) ? true : false;
+// }
 
 
 app.use(function (req, res, next) {
