@@ -11,10 +11,9 @@
       <h3><strong>🟢 정답자: <%= completed_users %></strong></h3>
       <h3><strong>🌀 난이도: Level <%= difficulty_level %></strong></h3>
       <hr>
-      <h3><strong>문제 설명 : </strong></h3>
-      <h5><%= description %></h5>
-      <!-- <h2><strong><%= tests %></strong></h2> -->
-
+      <h3 style="padding-left: 10px;">📌 문제 설명 : </h3>
+      <div style="border-radius: 15px; padding: 13px; width: 70%; background-color: lightgray"><strong><%= description %></strong></div>
+      <br>
       <!-- <form method="POST" onsubmit="return validateCode()"> -->
       <form action="/problems/<%= problemId %>" method="POST">
         <input type="hidden" name="problemId" value="<%= problemId %>" />

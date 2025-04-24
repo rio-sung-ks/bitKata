@@ -78,6 +78,7 @@ app.post("/problems/:id", (req, res) => {
   let noTest = problems[proId].tests;
   const failArray = [];
   const argArray = [];
+  const errorArray = [];
   let inputArg;
   for (let i = 0; i < noTest.length; i++) {
   try {
@@ -102,6 +103,7 @@ app.post("/problems/:id", (req, res) => {
     } catch (error) {
       failArray.push(i);
       argArray.push(inputArg);
+      errorArray.push(error);
       console.log(`failArray : ${failArray}`);
       console.log(`argArray : ${argArray}`);
     }
@@ -114,6 +116,8 @@ app.post("/problems/:id", (req, res) => {
       argArray: argArray,
       proId: proId,
       problems: problems,
+      errorArray: errorArray,
+      
      });
   }
 })

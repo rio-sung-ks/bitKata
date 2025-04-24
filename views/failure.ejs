@@ -10,9 +10,10 @@
     <% failArray.forEach(i => { %>
         <div>
             <br>
-            <strong>실패 Case <%= failArray[i] %> :<br></strong><br>
-            Input : n = <%= argArray[i] %><br>
-            Ouput : = <%= problems[proId].tests[i].solution %>
+            <div style="border-radius: 5px; text-align: center; padding: 3px; width: 100px; background-color: lightgray"><strong>실패 Case <%= failArray[i] %> :</strong></div><br>
+            <div style="padding-left: 20px;">Input : n = <%= argArray[i] %></div>
+            <div style="padding-left: 20px;">Ouput : <%= problems[proId].tests[i].solution %></div>
+            <div style="color: red; padding-left: 20px;">Error Message:  <%= errorArray[i] %></div>
         </div>
         <br>
         <hr>
