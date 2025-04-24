@@ -12,11 +12,7 @@ router.get(
   (req, res, next) => {
     res.render("indexLogin");
   }
-//   passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/login",
-//   }
-// )
+
 );
 
 

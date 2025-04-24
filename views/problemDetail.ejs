@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BitKata</title>
+    <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="/lib/codemirror/codemirror_v6.65.7.css" />
+      <link rel="stylesheet" type="text/css" href="./js/lib/codemirror/theme/darcula.css">
+    </head>
+    <body>
+      <h3><strong>🚀 문제 : <%= title %></strong></h3>
+      <h3><strong>🟢 정답자: <%= completed_users %></strong></h3>
+      <h3><strong>🌀 난이도: Level <%= difficulty_level %></strong></h3>
+      <hr>
+      <h3><strong>문제 설명 : </strong></h3>
+      <h5><%= description %></h5>
+      <!-- <h2><strong><%= tests %></strong></h2> -->
+
+      <form action="submit" method="post">
+        <textarea id="code" name="code">
+          async function connectDB() {
+            try {
+              await mongoose.connect('mongodb+srv://riosungks:=majority&appName=mongodb-cluster');
+              console.log('Connected to MongoDB');
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        </textarea>
+        <br>
+        <button>코드 제출</button>
+     </form>
+    <!-- 
+     html form submit
+     text => javascript 변환 editor.getValue() ?
+     axios, fetch 서버 전송
+     text => javascript 변환 editor.getValue() ?
+     DB에서 solution 관련 인자, return 값 가져오기
+     변환한 코드에 인자 넣어서 실행 결과 비교 => success / failure.ejs (통과 못한 테스트 케이스 명시)
+      -->
+      <script src="/lib/codemirror/codemirror_v6.65.7.js"></script>
+      <script src="/lib/codemirror/codemirror_mode_js_v6.65.7.js"></script>
+      <script>
+        const codeArea1 = document.getElementById("code");
+        CodeMirror.fromTextArea(codeArea1, {
+          lineNumbers: true,
+
+          mode: "javascript",
+          theme: "default"
+        });
+      </script>
+
+  </body>
+</html>

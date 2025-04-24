@@ -12,8 +12,9 @@ async function connectDB() {
   }
 }
 connectDB();
+
 const problems = await Problem.find();
-console.log(problems);
+// console.log(problems);
 import express from "express";
 import session from "express-session";
 import passport from "passport";
@@ -27,7 +28,7 @@ const __dirname = dirname(__filename);
 import index from "./routes/index.js";
 import configPassport from "./config/passport.js";
 
-connectDB();
+await connectDB();
 const app = express();
 
 app.set("view engine", "ejs",);
@@ -36,8 +37,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
-  secret: "sampleSecretKey",
-  resave: true,
+  secret: "secretkeyGit",
+  resave: false,
   saveUninitialized : false,
 }));
 
@@ -54,16 +55,28 @@ app.get(
   passport.authenticate("github", { failureRedirect: "/" }),
   function (req, res, next) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:8000/");
+    console.log("🟢 req.session :" ,req.session);
+    console.log("🟢 req.user :" ,req.user);
+    res.redirect("/");
   }
 );
 
-
 app.use("/", index);
 app.use("/problems/:id", (req, res, next) => {
-  const problemId = req.params.id;
-  res.json(problems[problemId]);
+  console.log("🟢 req.session in problem :" ,req.session);
+  console.log("🟢 req.user in problem:" ,req.user);
+  if(!req.user){
+    res.redirect("/login");
+  }
 
+  const problemId = req.params.id;
+  res.render("problemDetail",{
+    title: problems[problemId].title,
+    completed_users: problems[problemId].completed_users,
+    difficulty_level: problems[problemId].difficulty_level,
+    description: problems[problemId].description,
+    tests: problems[problemId].tests,
+  });
 });
 
 app.use(function (req, res, next) {
