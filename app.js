@@ -77,10 +77,15 @@ app.post("/problems/:id", (req, res) => {
   const codeText = req.body.code;
   let noTest = problems[proId].tests;
   const failArray = [];
-
+  const argArray = [];
+  let inputArg;
   for (let i = 0; i < noTest.length; i++) {
   try {
       let arg = problems[proId].tests[i].code;
+      let pStart = arg.indexOf("(",0) + 1;
+      let pEnd = arg.indexOf(")",0)
+      inputArg = arg.substring(pStart, pEnd);
+      console.log(`inputArg : ${inputArg}`);
       let answer = problems[proId].tests[i].solution;
       const context = {};
       vm.createContext(context);
@@ -89,49 +94,30 @@ app.post("/problems/:id", (req, res) => {
 
       if(result !== answer){
         failArray.push(i);
+        argArray.push(inputArg);
+        console.log(`failArray : ${failArray}`);
+        console.log(`argArray : ${argArray}`);
+        
       }
       console.log(`failArray : ${failArray}`);
     } catch (error) {
       failArray.push(i);
+      argArray.push(inputArg);
+      console.log(`failArray : ${failArray}`);
+      console.log(`argArray : ${argArray}`);
     }
   }
   if(failArray.length === 0){
-    res.send("success");
+    res.send("테스트 통과");
   } else {
-    res.render("failure", { failArray: failArray, proId: proId, problems: problems });
+    res.render("failure", {
+      failArray: failArray,
+      argArray: argArray,
+      proId: proId,
+      problems: problems,
+     });
   }
 })
-
-// 피보나치
-// function solution(n) {
-//   let fib = [0, 1];
-//   for (let i = 2; i <= n; i++) {
-//       fib[i] = (fib[i-1] + fib[i-2]) % 1234567;
-//   }
-//   return fib[n];
-// }
-
-// 김서방
-// function solution(seoul){
-//   var idx = seoul.indexOf('Kim');
-//   return "김서방은 " + idx + "에 있다";
-// }
-
-// 수박수박수박수박수
-// function solution(n) {
-//     return "수박".repeat(n).slice(0, n);
-// }
-
-//하샤드
-// function solution(x) {
-//   let sum = 0;
-//   let arr = String(x).split("");
-//   for(let i = 0; i < arr.length; i++){
-//       sum += Number(arr[i]);
-//   }
-//   return (x % sum == 0) ? true : false;
-// }
-
 
 app.use(function (req, res, next) {
   const err = new Error("Not Found");

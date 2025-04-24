@@ -11,13 +11,20 @@
         <div>
             <br>
             <strong>실패 Case <%= failArray[i] %> :<br></strong><br>
-            Input : n = <%= problems[proId].tests[i].code.substring(9,10) %><br>
+            Input : n = <%= argArray[i] %><br>
             Ouput : = <%= problems[proId].tests[i].solution %>
         </div>
         <br>
         <hr>
    <% }); %>
 </div>
+<br>
+<button onclick="handleGoingHome()">다른 문제 풀러가기 </button>
 
+<script>
+    function handleGoingHome(){
+        window.location.href = "/";
+    }
+</script>
 </body>
 </html>
