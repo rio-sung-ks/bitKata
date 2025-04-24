@@ -5,20 +5,10 @@
     <head>
       <meta charset="UTF-8">
       <link rel="stylesheet" href="/lib/codemirror/codemirror_v6.65.7.css" />
-      <link rel="stylesheet" type="text/css" href="./js/lib/codemirror/theme/darcula.css">
     </head>
     <body>
       <script src="/lib/codemirror/codemirror_v6.65.7.js"></script>
       <script src="/lib/codemirror/codemirror_mode_js_v6.65.7.js"></script>
-      <script>
-        const codeArea1 = document.getElementById("code");
-        CodeMirror.fromTextArea(codeArea1, {
-          lineNumbers: true,
-          mode: "javascript",
-          theme: "default"
-        });
-      </script>
-
 
     <h1>BitKata</h1>
     <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
@@ -31,7 +21,6 @@
         <option value="2">Level 2</option>
         <option value="3">Level 3</option>
       </select>
-    </ul>
 
     <ul class="problems">
       <li data-level="1">
