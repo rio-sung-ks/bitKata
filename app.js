@@ -97,7 +97,6 @@ app.post("/problems/:id", (req, res) => {
         argArray.push(inputArg);
         console.log(`failArray : ${failArray}`);
         console.log(`argArray : ${argArray}`);
-        
       }
       console.log(`failArray : ${failArray}`);
     } catch (error) {
@@ -108,7 +107,7 @@ app.post("/problems/:id", (req, res) => {
     }
   }
   if(failArray.length === 0){
-    res.send("테스트 통과");
+    res.render("success");
   } else {
     res.render("failure", {
       failArray: failArray,
