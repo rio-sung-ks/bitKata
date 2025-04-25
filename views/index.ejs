@@ -26,7 +26,7 @@
   <ul class="problems">
     <br>
     <%for (const [index, problem] of problems.entries()) {%>
-      <li data-level=<%= index+1 %> class="li-<%= index+1 %>">
+      <li data-level=<%= problem.difficulty_level %> class="li-<%= index+1 %>">
         <a class="title" href="/problems/<%= index %>"><%= problem.title %></a>
         <div>정답자: <%= problem.completed_users %></div>
         <div>난이도: Level <%= problem.difficulty_level %></div>
