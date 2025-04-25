@@ -3,7 +3,7 @@
   <head>
     <title>BitKata 🏀</title>
       <meta charset="UTF-8">
-      <link rel="stylesheet" href="../public/stylesheets/style.css" />
+      <link rel="stylesheet" href="/stylesheets/style.css" />
       <link rel="stylesheet" href="/lib/codemirror/codemirror_v6.65.7.css" />
   </head>
   <body>
@@ -12,7 +12,7 @@
 
   <h1>BitKata 🏀</h1>
   <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
-  <p style="color: blue; text-decoration: underline" onclick="gitLogin()">로그인 페이지</p>
+  <a href="/login">로그인 페이지</a>
   <br>
   <ul class="tabs">
     <select name="dropdown" id="dropdown" onchange="filterProblems()" >
@@ -25,51 +25,32 @@
 
   <ul class="problems">
     <br>
-    <li data-level="1" style="border-radius: 20px; font-weight:bold;  color: #fdb927; padding: 10px; width: 40%; background-color: #552583">
-      <div id=0 onclick="handleClick(this.id)" style="color: rgb(140, 140, 241); text-decoration: underline" >피보나치 수열</div>
-      <div>정답자: 15명</div>
-      <div>난이도: Level 1</div>
-    </li>
-    <br>
-    <li data-level="2" style="border-radius: 20px; font-weight:bold ; color: #552583; padding: 10px; width: 40%; background-color: #fdb927;">
-      <div id=1 onclick="handleClick(this.id)" style="color: rgb(0, 98, 255); text-decoration: underline" >서울에서 김서방 찾기</div>
-      <div>정답자: 11명</div>
-      <div>난이도: Level 2</div>
-    </li>
-    <br>
-    <li data-level="2" style="border-radius: 20px; color: #fdb927; padding: 10px; width: 40%; background-color: #552583">
-      <div id=2 onclick="handleClick(this.id)" style="color: rgb(140, 140, 241); text-decoration: underline" >수박수박수박수박수</div>
-      <div>정답자: 12명</div>
-      <div>난이도: Level 2</div>
-    </li>
-    <br>
-    <li data-level="3" style="border-radius: 20px;  color: #552583; padding: 10px; width: 40%; background-color: #fdb927;">
-      <div id=3 onclick="handleClick(this.id)" style="color: rgb(0, 98, 255); text-decoration: underline" >하샤드 수</div>
-      <div>정답자: 5명</div>
-      <div>난이도: Level 3</div>
-    </li>
+    <%for (const [index, problem] of problems.entries()) {%>
+      <li data-level=<%= index+1 %> class="li-<%= index+1 %>">
+        <a class="title" href="/problems/<%= index %>"><%= problem.title %></a>
+        <div>정답자: <%= problem.completed_users %></div>
+        <div>난이도: Level <%= problem.difficulty_level %></div>
+      </li>
+    <% } %>
+
   </ul>
   <script>
+    function filterProblems() {
+      const selectLevel = document.querySelector("#dropdown").value;
+      const lis = document.querySelectorAll(".problems li");
+      lis.forEach(li => {
+        const datalevel = li.dataset.level;
+        if (selectLevel === "all" || selectLevel === datalevel) {
+          li.style.display = "block";
+        } else {
+          li.style.display = "none";
+        }
+      });
+    }
 
-  function filterProblems(){
-    const selectLevel = document.querySelector("#dropdown").value;
-    const lis = document.querySelectorAll(".problems li");
-    lis.forEach(li => {
-      const datalevel = li.dataset.level;
-      if (selectLevel === "all" || selectLevel === datalevel) {
-        li.style.display = "block";
-      } else {
-        li.style.display = "none";
-      }
-    });
-  }
-
-  function handleClick(problemId){
-    window.location.href = `/problems/${problemId}`;
-  }
-  function gitLogin(){
-    window.location.href = `/login`;
-  }
+    function handleClick(problemId) {
+      window.location.href = `/problems/${problemId}`;
+    }
   </script>
   </body>
 </html>

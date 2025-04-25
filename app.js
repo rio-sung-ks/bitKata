@@ -25,11 +25,11 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import index from "./routes/index.js";
+import indexRouter from "./routes/index.js";
 import configPassport from "./config/passport.js";
 import { error } from "console";
-
 await connectDB();
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -60,8 +60,16 @@ app.get(
   }
 );
 
-app.use("/", index);
-app.use("/problems", index);
+// app.use("/", index, problems);
+
+
+
+app.use("/", (req, res, next) => {
+  req.problems = problems; // 문제 리스트를 req에 심어줌
+  next();
+}, indexRouter);
+
+// app.use("/problems", index);
 app.get("/problems/:id", (req, res, next) => {
   if (!req.user) {
     return res.redirect("/login");

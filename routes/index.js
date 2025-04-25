@@ -1,10 +1,9 @@
 import express from "express";
-import passport from "passport";
-
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.render("index", { title: "username" });
+  const problems = req.problems
+  res.render("index", { problems });
 });
 
 router.get("/login", (req, res, next) => {

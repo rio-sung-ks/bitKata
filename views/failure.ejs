@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Document</title>
 </head>
 <body>
@@ -10,9 +11,9 @@
     <% failArray.forEach(i => { %>
         <div>
             <br>
-            <div style="border-radius: 5px; text-align: center; padding: 3px; width: 100px; background-color: lightgray"><strong>실패 Case <%= failArray[i] %> :</strong></div><br>
-            <div style="border-radius: 5px; text-align: center; color:#552583; width: 250px; background-color: #fdb927;">Input : n = <%= argArray[i] %></div>
-            <div style="border-radius: 5px; text-align: center; color:#fdb927; width: 250px; background-color: #552583">Ouput : <%= problems[proId].tests[i].solution %></div>
+            <div class="fail-case"><strong>실패 Case <%= failArray[i] %> :</strong></div><br>
+            <div class="fail-input">Input : n = <%= argArray[i] %></div>
+            <div class="fail-output">Ouput : <%= problems[proId].tests[i].solution %></div>
             <Br>
             <div style="color: red; padding-left: 5px;">Error Message:  <%= errorArray[i] %></div>
         </div>

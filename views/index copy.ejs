@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BitKata</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script defer src="/javascripts/index.js"></script>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <h1>BitKata</h1>
+    <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
+
+    <ul class="tabs">
+      <li data-level="1" class="<%= level === '1' ? 'selected' : '' %>">Level 1</li>
+      <li data-level="2" class="<%= level === '2' ? 'selected' : '' %>">Level 2</li>
+      <li data-level="3" class="<%= level === '3' ? 'selected' : '' %>">Level 3</li>
+    </ul>
+
+    <ul class="problems">
+      <% for (const problem of problems) { %>
+      <a href="/problems/<%= problem.id %>">
+        <li data-level="<%= problem.difficulty_level %>">
+          <div><%= problem.title %></div>
+          <div>정답자: <%= problem.completed_users %>명</div>
+          <div>난이도: Level <%= problem.difficulty_level %></div>
+        </li>
+      </a>
+      <% } %>
+    </ul>
+  </body>
+</html>
+
