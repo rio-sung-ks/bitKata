@@ -89,8 +89,8 @@ BitKata MVP에서는 사용자가 로그인한 뒤, 문제를 고르고, 코드�
 - [x] 로그인 버튼 UI 제공
 - [x] 로그인 성공 시 `/`로 이동
 - [x] 실패 시 `/login`으로 복귀
-- [ ] 인증되지 않은 사용자는 그 외 경로 접근 불가
-- [ ] Passport.js + GitHub 소셜 인증 구현
+- [x] 인증되지 않은 사용자는 그 외 경로 접근 불가
+- [x] Passport.js + GitHub 소셜 인증 구현
 
 #### 참고자료
 
@@ -107,10 +107,10 @@ BitKata MVP에서는 사용자가 로그인한 뒤, 문제를 고르고, 코드�
 
 ### GET `/`
 
-- [ ] `views/index.ejs`에 문제 리스트 렌더링
-- [ ] `sample_problems.json`을 MongoDB Atlas에 수동으로 삽입
-- [ ] 문제 이름, 레벨, 정답자 수 출력
-- [ ] 문제 클릭 시 `/problems/:id`로 이동
+- [x] `views/index.ejs`에 문제 리스트 렌더링
+- [x] `sample_problems.json`을 MongoDB Atlas에 수동으로 삽입
+- [x] 문제 이름, 레벨, 정답자 수 출력
+- [x] 문제 클릭 시 `/problems/:id`로 이동
 
 <br>
 <br>
@@ -139,10 +139,10 @@ BitKata MVP에서는 사용자가 로그인한 뒤, 문제를 고르고, 코드�
 
 ### POST `/problems/:id`
 
-- [ ] 제출 코드 vs 정답 코드 비교
-- [ ] 성공 시 `success.ejs`로 이동
-- [ ] 실패 시 `failure.ejs` (통과 못한 테스트 케이스 명시)
-- [ ] 코드 실행 중 에러 발생 시 → 에러 메세지 포함하여 `failure.ejs` 출력
+- [x] 제출 코드 vs 정답 코드 비교
+- [x] 성공 시 `success.ejs`로 이동
+- [x] 실패 시 `failure.ejs` (통과 못한 테스트 케이스 명시)
+- [x] 코드 실행 중 에러 발생 시 → 에러 메세지 포함하여 `failure.ejs` 출력
 - [ ] 사용자의 코드 실행시 보안 이슈 고려 필수
 
 <br>
@@ -152,7 +152,7 @@ BitKata MVP에서는 사용자가 로그인한 뒤, 문제를 고르고, 코드�
 
 <br>
 
-- [ ] 404: 잘못된 URL
+- [x] 404: 잘못된 URL
 - [ ] 500: 내부 오류 발생 시, 사용자에게는 상세 오류 감춤
 
 <br>

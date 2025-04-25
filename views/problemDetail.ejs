@@ -12,18 +12,15 @@
       <h3><strong>🟢 정답자: <%= completed_users %></strong></h3>
       <h3><strong>🌀 난이도: Level <%= difficulty_level %></strong></h3>
       <hr>
-
       <h3 style="padding-left: 10px; ">📌 문제 설명 : </h3>
       <div style="border-radius: 15px; font-weight:bold ; color: #552583 ; padding: 13px; width: 70%; background-color: #fdb927"><strong><%= description %></strong></div>
       <br>
-      <!-- <form method="POST" onsubmit="return validateCode()"> -->
       <form action="/problems/<%= problemId %>" method="POST">
         <input type="hidden" name="problemId" value="<%= problemId %>" />
         <textarea id="code" name="code"></textarea>
         <br>
         <button>코드 제출</button>
      </form>
-
       <script src="/lib/codemirror/codemirror_v6.65.7.js"></script>
       <script src="/lib/codemirror/codemirror_mode_js_v6.65.7.js"></script>
       <script>
@@ -34,21 +31,5 @@
           theme: "default",
         });
       </script>
-      <script>
-          // async function validateCode() {
-          //   let code = editor.getValue();
-          //   codeArea1.value = code;
-          //   console.log("제출한 코드:", code);
-          // }
-      </script>
-       <!--
-        1. html form submit
-        2. text => javascript 변환 editor.getValue() ?
-        3. axios, fetch 서버 전송
-        4. text => javascript 변환 editor.getValue() ?
-        5. DB에서 solution 관련 인자, return 값 가져오기
-        6. 변환한 코드에 인자 넣어서 실행 결과 비교 => success / failure.ejs (통과 못한 테스트 케이스)
-      -->
-
   </body>
 </html>

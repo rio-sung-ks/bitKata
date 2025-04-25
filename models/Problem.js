@@ -10,13 +10,13 @@ const ProblemSchema = new mongoose.Schema({
     type: String,
   },
   completed_users: {
-    type: Number
+    type: Number,
   },
   difficulty_level: {
-    type: Number
+    type: Number,
   },
   description: {
-    type: String
+    type: String,
   },
   tests: [
     {
