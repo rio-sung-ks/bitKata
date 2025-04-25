@@ -49,7 +49,7 @@ configPassport();
 app.get("/auth/github", passport.authenticate("github"));
 app.get(
   "/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "/" }),
+  passport.authenticate("github", { failureRedirect: "/login", failureMessage: true }),
   function (req, res, next) {
     res.redirect("/");
   }
@@ -96,16 +96,11 @@ app.post("/problems/:id", (req, res) => {
       if(result !== answer){
         failArray.push(i);
         argArray.push(inputArg);
-        console.log(`failArray : ${failArray}`);
-        console.log(`argArray : ${argArray}`);
       }
-      console.log(`failArray : ${failArray}`);
     } catch (error) {
       failArray.push(i);
       argArray.push(inputArg);
       errorArray.push(error);
-      console.log(`failArray : ${failArray}`);
-      console.log(`argArray : ${argArray}`);
     }
   }
   if(failArray.length === 0){
@@ -117,7 +112,6 @@ app.post("/problems/:id", (req, res) => {
       proId: proId,
       problems: problems,
       errorArray: errorArray,
-      
      });
   }
 })
@@ -131,8 +125,10 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-
+  res.redirect("/login")
   res.status(err.status || 500);
+  
+
   res.render("error");
 });
 

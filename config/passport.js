@@ -24,10 +24,12 @@ export default function configPassport() {
           return callback(null, newUser);
 
         } else {
+          console.log("not logged");
           return callback(null, newUser);
         }
       } catch (error) {
         console.error(error);
+        
         return callback(error);
       }
     }
