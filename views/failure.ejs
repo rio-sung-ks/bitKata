@@ -11,23 +11,26 @@
     <% failArray.forEach(i => { %>
         <div>
             <br>
-            <div class="fail-case"><strong>실패 Case <%= failArray[i] %> :</strong></div><br>
-            <div class="fail-input">Input : n = <%= argArray[i] %></div>
-            <div class="fail-output">Ouput : <%= problems[proId].tests[i].solution %></div>
+            <div class="fail-case">
+                <strong>실패 Case <%= failArray[i] %> :</strong>
+            </div>
+            <br>
+            <div class="fail-input">
+                Input : n = <%= argArray[i] %>
+            </div>
+            <div class="fail-output">
+                Ouput : <%= problems[proId].tests[i].solution %>
+            </div>
             <Br>
-            <div style="color: red; padding-left: 5px;">Error Message:  <%= errorArray[i] %></div>
+            <div class="err-message">Error Message:  <%= errorArray[i] %></div>
         </div>
         <br>
         <hr>
    <% }); %>
 </div>
 <br>
-<button onclick="handleGoingHome()">다른 문제 풀러가기 </button>
-
-<script>
-    function handleGoingHome(){
-        window.location.href = "/";
-    }
-</script>
+<a href="/">
+    <button>다른 문제 풀러가기 </button>
+</a>
 </body>
 </html>
