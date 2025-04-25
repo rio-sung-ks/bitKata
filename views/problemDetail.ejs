@@ -4,7 +4,7 @@
     <title>BitKata</title>
     <head>
       <meta charset="UTF-8">
-      <link rel="stylesheet" href="../public/stylesheets/style.css">
+      <link rel="stylesheet" href="/stylesheets/style.css">
       <link rel="stylesheet" href="/lib/codemirror/codemirror_v6.65.7.css" />
     </head>
     <body>
@@ -12,8 +12,8 @@
       <h3><strong>🟢 정답자: <%= completed_users %></strong></h3>
       <h3><strong>🌀 난이도: Level <%= difficulty_level %></strong></h3>
       <hr>
-      <h3 style="padding-left: 10px; ">📌 문제 설명 : </h3>
-      <div style="border-radius: 15px; font-weight:bold ; color: #552583 ; padding: 13px; width: 70%; background-color: #fdb927"><strong><%= description %></strong></div>
+      <h3 >📌 문제 설명 : </h3>
+      <div class="problem-description"><%= description %></div>
       <br>
       <form action="/problems/<%= problemId %>" method="POST">
         <input type="hidden" name="problemId" value="<%= problemId %>" />
