@@ -2,73 +2,74 @@
 <html>
   <head>
     <title>BitKata 🏀</title>
-    <head>
       <meta charset="UTF-8">
-      <link rel="stylesheet" href="../public/stylesheets/style.css">
+      <link rel="stylesheet" href="../public/stylesheets/style.css" />
       <link rel="stylesheet" href="/lib/codemirror/codemirror_v6.65.7.css" />
-    </head>
-    <body>
-      <script src="/lib/codemirror/codemirror_v6.65.7.js"></script>
-      <script src="/lib/codemirror/codemirror_mode_js_v6.65.7.js"></script>
+  </head>
+  <body>
+    <script src="/lib/codemirror/codemirror_v6.65.7.js"></script>
+    <script src="/lib/codemirror/codemirror_mode_js_v6.65.7.js"></script>
 
-    <h1>BitKata 🏀</h1>
-    <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
-    <p style="color: blue; text-decoration: underline"onclick="gitLogin()">로그인 페이지</p><br>
-    <ul class="tabs">
-      <select name="dropdown" id="dropdown" onchange="filterProblems()" >
-        <option value="all">전체</option>
-        <option value="1">Level 1</option>
-        <option value="2">Level 2</option>
-        <option value="3">Level 3</option>
-      </select>
+  <h1>BitKata 🏀</h1>
+  <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
+  <p style="color: blue; text-decoration: underline" onclick="gitLogin()">로그인 페이지</p>
+  <br>
+  <ul class="tabs">
+    <select name="dropdown" id="dropdown" onchange="filterProblems()" >
+      <option value="all">전체</option>
+      <option value="1">Level 1</option>
+      <option value="2">Level 2</option>
+      <option value="3">Level 3</option>
+    </select>
+  </ul>
 
-    <ul class="problems">
-      <br>
-      <li data-level="1" style="border-radius: 20px; font-weight:bold;  color: #fdb927; padding: 10px; width: 40%; background-color: #552583">
-        <div id=0 onclick="handleClick(this.id)" style="color: rgb(140, 140, 241); text-decoration: underline" >피보나치 수열</div>
-        <div>정답자: 15명</div>
-        <div>난이도: Level 1</div>
-      </li>
-      <br>
-      <li data-level="2" style="border-radius: 20px; font-weight:bold ; color: #552583; padding: 10px; width: 40%; background-color: #fdb927;">
-        <div id=1 onclick="handleClick(this.id)" style="color: rgb(0, 98, 255); text-decoration: underline" >서울에서 김서방 찾기</div>
-        <div>정답자: 11명</div>
-        <div>난이도: Level 2</div>
-      </li>
-      <br>
-      <li data-level="2" style="border-radius: 20px; color: #fdb927; padding: 10px; width: 40%; background-color: #552583">
-        <div id=2 onclick="handleClick(this.id)" style="color: rgb(140, 140, 241); text-decoration: underline" >수박수박수박수박수</div>
-        <div>정답자: 12명</div>
-        <div>난이도: Level 2</div>
-      </li>
-      <br>
-      <li data-level="3" style="border-radius: 20px;  color: #552583; padding: 10px; width: 40%; background-color: #fdb927;">
-        <div id=3 onclick="handleClick(this.id)" style="color: rgb(0, 98, 255); text-decoration: underline" >하샤드 수</div>
-        <div>정답자: 5명</div>
-        <div>난이도: Level 3</div>
-      </li>
-    </ul>
-    <script>
+  <ul class="problems">
+    <br>
+    <li data-level="1" style="border-radius: 20px; font-weight:bold;  color: #fdb927; padding: 10px; width: 40%; background-color: #552583">
+      <div id=0 onclick="handleClick(this.id)" style="color: rgb(140, 140, 241); text-decoration: underline" >피보나치 수열</div>
+      <div>정답자: 15명</div>
+      <div>난이도: Level 1</div>
+    </li>
+    <br>
+    <li data-level="2" style="border-radius: 20px; font-weight:bold ; color: #552583; padding: 10px; width: 40%; background-color: #fdb927;">
+      <div id=1 onclick="handleClick(this.id)" style="color: rgb(0, 98, 255); text-decoration: underline" >서울에서 김서방 찾기</div>
+      <div>정답자: 11명</div>
+      <div>난이도: Level 2</div>
+    </li>
+    <br>
+    <li data-level="2" style="border-radius: 20px; color: #fdb927; padding: 10px; width: 40%; background-color: #552583">
+      <div id=2 onclick="handleClick(this.id)" style="color: rgb(140, 140, 241); text-decoration: underline" >수박수박수박수박수</div>
+      <div>정답자: 12명</div>
+      <div>난이도: Level 2</div>
+    </li>
+    <br>
+    <li data-level="3" style="border-radius: 20px;  color: #552583; padding: 10px; width: 40%; background-color: #fdb927;">
+      <div id=3 onclick="handleClick(this.id)" style="color: rgb(0, 98, 255); text-decoration: underline" >하샤드 수</div>
+      <div>정답자: 5명</div>
+      <div>난이도: Level 3</div>
+    </li>
+  </ul>
+  <script>
 
-      function filterProblems(){
-        const selectLevel = document.querySelector("#dropdown").value;
-        const lis = document.querySelectorAll(".problems li");
-        lis.forEach(li => {
-          const datalevel = li.dataset.level;
-          if(selectLevel === "all" || selectLevel === datalevel){
-            li.style.display = "block";
-          } else {
-            li.style.display = "none";
-          }
-        })
+  function filterProblems(){
+    const selectLevel = document.querySelector("#dropdown").value;
+    const lis = document.querySelectorAll(".problems li");
+    lis.forEach(li => {
+      const datalevel = li.dataset.level;
+      if (selectLevel === "all" || selectLevel === datalevel) {
+        li.style.display = "block";
+      } else {
+        li.style.display = "none";
       }
+    });
+  }
 
-      function handleClick(problemId){
-      window.location.href = `/problems/${problemId}`;
-      }
-      function gitLogin(){
-        window.location.href = `/login`;
-      }
-    </script>
+  function handleClick(problemId){
+    window.location.href = `/problems/${problemId}`;
+  }
+  function gitLogin(){
+    window.location.href = `/login`;
+  }
+  </script>
   </body>
 </html>
