@@ -1,8 +1,9 @@
 import express from "express";
+import Problem from "../models/Problem.js";
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  const problems = req.problems
+router.get("/", async (req, res, next) => {
+  const problems =  await Problem.find();
   res.render("index", { problems });
 });
 
